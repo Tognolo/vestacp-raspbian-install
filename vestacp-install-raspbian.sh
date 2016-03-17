@@ -28,7 +28,7 @@ if [ "$release" -eq 8 ]; then
         mysql-client postgresql postgresql-contrib phppgadmin phpMyAdmin mc
         flex whois rssh git idn zip sudo bc ftp lsof ntpdate rrdtool quota
         e2fslibs bsdutils e2fsprogs curl imagemagick fail2ban dnsutils
-        bsdmainutils cron vesta vesta-nginx vesta-php"
+        bsdmainutils cron" #vesta vesta-nginx vesta-php
 else
     software="nginx apache2 apache2-utils apache2.2-common
         apache2-suexec-custom libapache2-mod-ruid2 libapache2-mod-rpaf
@@ -40,7 +40,7 @@ else
         mysql-client postgresql postgresql-contrib phppgadmin phpMyAdmin mc
         flex whois rssh git idn zip sudo bc ftp lsof ntpdate rrdtool quota
         e2fslibs bsdutils e2fsprogs curl imagemagick fail2ban dnsutils
-        bsdmainutils cron vesta vesta-nginx vesta-php"
+        bsdmainutils cron" #vesta vesta-nginx vesta-php
 fi
 
 # Defining help function
@@ -266,6 +266,7 @@ if [ ! -z "$conflicts" ] && [ -z "$force" ]; then
     echo
     check_result 1 "Control Panel should be installed on clean server."
 fi
+ 
 
 
 #----------------------------------------------------------#
@@ -413,19 +414,19 @@ fi
 #----------------------------------------------------------#
 
 # Updating system
-apt-get -y upgrade
-check_result $? 'apt-get upgrade failed'
+#apt-get -y upgrade
+#check_result $? 'apt-get upgrade failed'
 
 # Installing nginx repo
-apt=/etc/apt/sources.list.d
-echo "deb http://nginx.org/packages/debian/ $codename nginx" > $apt/nginx.list
-wget http://nginx.org/keys/nginx_signing.key -O /tmp/nginx_signing.key
-apt-key add /tmp/nginx_signing.key
+#apt=/etc/apt/sources.list.d
+#echo "deb http://nginx.org/packages/debian/ $codename nginx" > $apt/nginx.list
+#wget http://nginx.org/keys/nginx_signing.key -O /tmp/nginx_signing.key
+#apt-key add /tmp/nginx_signing.key
 
 # Installing vesta repo
-echo "deb http://$RHOST/$codename/ $codename vesta" > $apt/vesta.list
-wget $CHOST/deb_signing.key -O deb_signing.key
-apt-key add deb_signing.key
+#echo "deb http://$RHOST/$codename/ $codename vesta" > $apt/vesta.list
+#wget $CHOST/deb_signing.key -O deb_signing.key
+#apt-key add deb_signing.key
 
 
 #----------------------------------------------------------#
@@ -493,11 +494,11 @@ cp -r /etc/mysql/* $vst_backups/mysql > /dev/null 2>&1
 mv -f /root/.my.cnf $vst_backups/mysql > /dev/null 2>&1
 
 # Backup vesta
-service vesta stop > /dev/null 2>&1
-cp -r /usr/local/vesta/* $vst_backups/vesta > /dev/null 2>&1
-apt-get -y remove vesta vesta-nginx vesta-php > /dev/null 2>&1
-apt-get -y purge vesta vesta-nginx vesta-php > /dev/null 2>&1
-rm -rf /usr/local/vesta > /dev/null 2>&1
+#service vesta stop > /dev/null 2>&1
+#cp -r /usr/local/vesta/* $vst_backups/vesta > /dev/null 2>&1
+#apt-get -y remove vesta vesta-nginx vesta-php > /dev/null 2>&1
+#apt-get -y purge vesta vesta-nginx vesta-php > /dev/null 2>&1
+#rm -rf /usr/local/vesta > /dev/null 2>&1
 
 
 #----------------------------------------------------------#
